@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { FlatList, StyleSheet, Text, View, Button } from "react-native";
+import { FlatList, StyleSheet, Text, View } from "react-native";
 import ProductCard from "../ProductCard/ProductCard";
 import Header from "../Header/Header";
 import SearchBar from "../SearchBar/SearchBar";
 import ProductDetail from "../ProductDetail/ProductDetail";
+import ProductCategory from "../ProductCategory/ProductCategory";
 
 const Productos = ({ dataProductos }) => {
   const [filteredProducts, setFilteredProducts] = useState([]);
@@ -39,28 +40,14 @@ const Productos = ({ dataProductos }) => {
   return (
     <>
       {seeDetail ? (
-          <ProductDetail productDetail={productDetail} onClose={() => setseeDetail(false)} />
+        <ProductDetail
+          productDetail={productDetail}
+          onClose={() => setseeDetail(false)}
+        />
       ) : (
         <View style={styles.productosContain}>
           <Header titleHeader={`Categoria: ${selectedCategory}`} />
-          <View style={styles.categoryButtons}>
-            <Button
-              title="Todos"
-              onPress={() => handleCategoryButtonClick("Todos")}
-            />
-            <Button
-              title="Electrónica"
-              onPress={() => handleCategoryButtonClick("Electrónica")}
-            />
-            <Button
-              title="Deportes"
-              onPress={() => handleCategoryButtonClick("Deportes")}
-            />
-            <Button
-              title="Fotografía"
-              onPress={() => handleCategoryButtonClick("Fotografía")}
-            />
-          </View>
+          <ProductCategory onSelectCategory={handleCategoryButtonClick} />
           <SearchBar
             dataProducts={dataProductos}
             setSearchedProducts={setSearchedProducts}
@@ -87,15 +74,6 @@ const Productos = ({ dataProductos }) => {
 const styles = StyleSheet.create({
   productosContain: {
     overflow: "scroll",
-  },
-  categoryButtons: {
-    flexDirection: "row",
-    justifyContent: "center",
-    flexWrap: "wrap",
-    gap: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: "black",
-    marginVertical: 20,
   },
   errorText: {
     color: "red",

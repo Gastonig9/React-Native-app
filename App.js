@@ -1,12 +1,23 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { fonts } from './assets/fonts/fonts'
+import { useFonts } from 'expo-font'
 import Home from './screens/Home/Home';
 
-const TodoListScreen = () => {
+const App = () => {
+
+  const [fontsLoaded] = useFonts(fonts)
+
+  if (!fontsLoaded) {
+    return (
+      <View>
+        <Text>Cargando fuentes...</Text>
+      </View>
+    );
+  }
 
   return (
     <View>
-      <Text>HOLA</Text>
       <Home/>
     </View>
   );
@@ -42,4 +53,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TodoListScreen;
+export default App;

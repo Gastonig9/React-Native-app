@@ -2,7 +2,7 @@ export const productos = [
     {
       id: 1,
       titulo: "iPhone 12",
-      imagen: "iphone12.jpg",
+      imagen: "https://i.ibb.co/T8mxQyv/no-img.jpg",
       descripcion: "El iPhone 12 es el último modelo de smartphone de Apple, con una pantalla Super Retina XDR, chip A14 Bionic y compatibilidad con la red 5G.",
       precio: 999.99,
       stock: 20,
@@ -141,7 +141,7 @@ export const productos = [
     {
       id: 15,
       titulo: "Nike Air Zoom Pegasus 36",
-      imagen: "nikePegasus36.jpg",
+      imagen: "https://i.ibb.co/T8mxQyv/no-img.jpg",
       descripcion: "Las zapatillas Nike Air Zoom Pegasus 36 son conocidas por su comodidad y rendimiento, ideales para corredores de todos los niveles.",
       precio: 109.99,
       stock: 20,
@@ -151,7 +151,7 @@ export const productos = [
     {
       id: 16,
       titulo: "Canon EOS R6",
-      imagen: "canonEOSR6.jpg",
+      imagen: "https://i.ibb.co/T8mxQyv/no-img.jpg",
       descripcion: "La Canon EOS R6 es una cámara mirrorless versátil con enfoque automático rápido, grabación de video 4K y estabilización de imagen integrada.",
       precio: 2799.99,
       stock: 12,
