@@ -1,12 +1,13 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, Text, FlatList, Button } from 'react-native';
 import Productos from '../../components/Productos/Productos';
 import { productos } from '../../constants/constants';
 
-export default function Home() {
+export default function Home({ navigation }) {
   return (
     <View>
-      <Productos dataProductos={productos} />
+      <Button title='Ver categorias' onPress={() => navigation.navigate("Categories")} />
+      <Productos navigation={navigation} dataProductos={productos}/>
     </View>
   );
 }

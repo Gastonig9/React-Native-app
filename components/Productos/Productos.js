@@ -4,69 +4,34 @@ import ProductCard from "../ProductCard/ProductCard";
 import Header from "../Header/Header";
 import SearchBar from "../SearchBar/SearchBar";
 import ProductDetail from "../ProductDetail/ProductDetail";
-import ProductCategory from "../ProductCategory/ProductCategory";
 
-const Productos = ({ dataProductos }) => {
-  const [filteredProducts, setFilteredProducts] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState("Todos");
+const Productos = ({ dataProductos, navigation }) => {
   const [error, setError] = useState(false);
   const [searchedProducts, setSearchedProducts] = useState([]);
-  const [seeDetail, setseeDetail] = useState(false);
-  const [productDetail, setproductDetail] = useState({});
-
-  const handleCategoryButtonClick = (category) => {
-    setSelectedCategory(category);
-  };
-
-  useEffect(() => {
-    if (selectedCategory !== "Todos") {
-      const filteredCategoryProducts = dataProductos.filter(
-        (p) => p.categoria === selectedCategory
-      );
-      setFilteredProducts(filteredCategoryProducts);
-    } else {
-      setFilteredProducts(dataProductos);
-    }
-  }, [selectedCategory, dataProductos]);
 
   const renderProduct = ({ item }) => (
-    <ProductCard
-      producto={item}
-      setseeDetail={setseeDetail}
-      setProductDetail={setproductDetail}
-    />
+    <ProductCard navigation={navigation} producto={item} />
   );
 
   return (
     <>
-      {seeDetail ? (
-        <ProductDetail
-          productDetail={productDetail}
-          onClose={() => setseeDetail(false)}
+      <View style={styles.productosContain}>
+        <SearchBar
+          dataProducts={dataProductos}
+          setSearchedProducts={setSearchedProducts}
+          setError={setError}
         />
-      ) : (
-        <View style={styles.productosContain}>
-          <Header titleHeader={`Categoria: ${selectedCategory}`} />
-          <ProductCategory onSelectCategory={handleCategoryButtonClick} />
-          <SearchBar
-            dataProducts={dataProductos}
-            setSearchedProducts={setSearchedProducts}
-            setError={setError}
-          />
 
-          {error && (
-            <Text style={styles.errorText}>No se encontraron productos.</Text>
-          )}
+        {error && (
+          <Text style={styles.errorText}>No se encontraron productos.</Text>
+        )}
 
-          <FlatList
-            data={
-              searchedProducts.length > 0 ? searchedProducts : filteredProducts
-            }
-            renderItem={renderProduct}
-            keyExtractor={(item) => item.id.toString()}
-          />
-        </View>
-      )}
+        <FlatList
+          data={searchedProducts.length > 0 ? searchedProducts : dataProductos}
+          renderItem={renderProduct}
+          keyExtractor={(item) => item.id.toString()}
+        />
+      </View>
     </>
   );
 };

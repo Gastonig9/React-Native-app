@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { fonts } from './assets/fonts/fonts'
 import { useFonts } from 'expo-font'
-import Home from './screens/Home/Home';
+import Navigator from './navigation/navigator';
 
 const App = () => {
 
@@ -17,9 +17,7 @@ const App = () => {
   }
 
   return (
-    <View>
-      <Home/>
-    </View>
+    <Navigator/>
   );
 };
 
