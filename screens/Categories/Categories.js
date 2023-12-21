@@ -1,4 +1,3 @@
-// Categories.js
 import React from "react";
 import { StyleSheet, View, TouchableOpacity, Text } from "react-native";
 

@@ -1,19 +1,18 @@
 // ItemListCategory.js
 import React, { useEffect, useState } from "react";
 import { productos } from "../../constants/constants";
+import { useDispatch, useSelector } from "react-redux";
+import { handleCategory } from "../../features/products/productSlice";
 import { FlatList, StyleSheet, View, Text } from "react-native";
 
 export default function ItemListCategory({ route }) {
   const { category } = route.params;
-  const [productCategory, setProductCategory] = useState([]);
+  const productCategory = useSelector((state) => state.products.value.productCategory);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    const filterByCategory = productos.filter((p) => p.categoria === category);
-    if (category === "Todos") {
-      return setProductCategory(productos);
-    }
-    setProductCategory(filterByCategory);
-  }, [category]);
+    dispatch(handleCategory(category))
+  }, []);
 
   const renderItem = ({ item }) => (
     <View style={styles.productContainer}>
@@ -56,5 +55,4 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 8,
   },
-  // Puedes agregar más estilos según sea necesario
 });

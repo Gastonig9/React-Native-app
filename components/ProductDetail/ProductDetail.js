@@ -1,20 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, Image, StyleSheet, Button } from "react-native";
-import { productos } from "../../constants/constants";
+import { handleProductDetail } from "../../features/products/productSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const ProductDetail = ({ route }) => {
   const { ptitle } = route.params
-  const [productDetail, setproductDetail] = useState({})
+  const productDetail = useSelector((state) => state.products.value.productDetail);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    const getProduct = productos.find((p) => p.titulo === ptitle)
-    if(getProduct) {
-      setproductDetail(getProduct)
-    }else{
-      console.log("ningun producto")
-    }
-
+    dispatch(handleProductDetail(ptitle))
   }, [])
+
   
   return (
     <View style={styles.productDetailContainer}>

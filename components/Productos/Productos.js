@@ -1,13 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { FlatList, StyleSheet, Text, View } from "react-native";
 import ProductCard from "../ProductCard/ProductCard";
-import Header from "../Header/Header";
 import SearchBar from "../SearchBar/SearchBar";
-import ProductDetail from "../ProductDetail/ProductDetail";
+import { useSelector } from "react-redux";
 
 const Productos = ({ dataProductos, navigation }) => {
-  const [error, setError] = useState(false);
-  const [searchedProducts, setSearchedProducts] = useState([]);
+  const searchedProducts = useSelector((state) => state.products.value.searchedProducts);
 
   const renderProduct = ({ item }) => (
     <ProductCard navigation={navigation} producto={item} />
@@ -16,16 +14,7 @@ const Productos = ({ dataProductos, navigation }) => {
   return (
     <>
       <View style={styles.productosContain}>
-        <SearchBar
-          dataProducts={dataProductos}
-          setSearchedProducts={setSearchedProducts}
-          setError={setError}
-        />
-
-        {error && (
-          <Text style={styles.errorText}>No se encontraron productos.</Text>
-        )}
-
+        <SearchBar />
         <FlatList
           data={searchedProducts.length > 0 ? searchedProducts : dataProductos}
           renderItem={renderProduct}

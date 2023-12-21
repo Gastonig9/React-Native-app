@@ -1,21 +1,15 @@
 import React, { useState } from 'react';
 import { TextInput, View, StyleSheet, Pressable, Text } from 'react-native';
+import { useDispatch } from 'react-redux';
+import { handleSearch } from '../../features/products/productSlice';
 
-export default function SearchBar({ dataProducts, setSearchedProducts, setError }) {
+export default function SearchBar() {
+  const dispatch = useDispatch();
   const [term, setTerm] = useState("");
 
-  const handleSearch = () => {
-    const searchTerm = dataProducts.filter((p) =>
-      p.titulo.toLowerCase().includes(term.toLowerCase())
-    );
-
-    if (searchTerm.length > 0) {
-      setSearchedProducts(searchTerm);
-      setError(false);
-    } else {
-      setSearchedProducts([]);
-      setError(true);
-    }
+  const handleSearchPress = () => {
+    dispatch(handleSearch(term))
+    setTerm("")
   };
 
   return (
@@ -26,7 +20,7 @@ export default function SearchBar({ dataProducts, setSearchedProducts, setError 
         value={term}
         onChangeText={setTerm}
       />
-      <Pressable onPress={handleSearch}>
+      <Pressable onPress={handleSearchPress}>
         <Text style={styles.searchButton}>Buscar</Text>
       </Pressable>
     </View>

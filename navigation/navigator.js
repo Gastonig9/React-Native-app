@@ -1,43 +1,44 @@
+import HomeStack from "./HomeStack";
+import CartStack from "./CartStack";
 import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import Home from "../screens/Home/Home";
-import Categories from "../screens/Categories/Categories";
-import ItemListCategory from "../components/ItemListCategory/ItemListCategory";
-import ProductDetail from "../components/ProductDetail/ProductDetail";
-import Header from "../components/Header/Header";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { Entypo } from "@expo/vector-icons";
+import { StyleSheet } from "react-native";
 
-const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
 
 export default function Navigator() {
   return (
     <NavigationContainer>
-      <Stack.Navigator
-        initialRouteName="Home"
-        screenOptions={({ route }) => {
-          return {
-            header: () => (
-              <Header
-                titleHeader={
-                  route.name === "Home"
-                    ? "Home"
-                    : route.name === "Categories"
-                    ? "Categorias"
-                    : route.name === "ProductDetail"
-                    ? route.params.ptitle
-                    : route.name === "ItemListCategory"
-                    ? route.params.category
-                    : "Detalle"
-                }
-              />
-            ),
-          };
+      <Tab.Navigator
+        screenOptions={{
+          headerShown: false,
+          tabBarShowLabel: false,
+          tabBarStyle: styles.tabBarContain
         }}
       >
-        <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="Categories" component={Categories} />
-        <Stack.Screen name="ItemListCategory" component={ItemListCategory} />
-        <Stack.Screen name="ProductDetail" component={ProductDetail} />
-      </Stack.Navigator>
+        <Tab.Screen
+          name="HomeStack"
+          component={HomeStack}
+          options={{
+            tabBarIcon: () => <Entypo name="home" size={30} color= "white" />,
+          }}
+        />
+        <Tab.Screen
+          name="CartStack"
+          component={CartStack}
+          options={{
+            tabBarIcon: () => <Entypo name="shopping-cart" size={30} color="white" />,
+          }}
+        />
+      </Tab.Navigator>
     </NavigationContainer>
   );
 }
+
+const styles = StyleSheet.create({
+  tabBarContain: {
+    backgroundColor: "#3498db",
+    color: "white"
+  }
+});
