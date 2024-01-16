@@ -1,3 +1,5 @@
+export const url_base = 'https://react-native-app-28918-default-rtdb.firebaseio.com/'
+
 export const productos = [
   {
     id: 1,
