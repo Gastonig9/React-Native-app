@@ -1,15 +1,16 @@
 import HomeStack from "./HomeStack";
 import CartStack from "./CartStack";
-import { NavigationContainer } from "@react-navigation/native";
+import ProfileStack from "./ProfileStack"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Entypo } from "@expo/vector-icons";
+import { Entypo, FontAwesome } from "@expo/vector-icons";
 import { StyleSheet } from "react-native";
+import AuthStack from "./AuthStack";
 
 const Tab = createBottomTabNavigator();
 
 export default function Navigator() {
   return (
-    <NavigationContainer>
+
       <Tab.Navigator
         screenOptions={{
           headerShown: false,
@@ -31,8 +32,14 @@ export default function Navigator() {
             tabBarIcon: () => <Entypo name="shopping-cart" size={30} color="white" />,
           }}
         />
+        <Tab.Screen
+          name="ProfileStack"
+          component={ProfileStack}
+          options={{
+            tabBarIcon: () => <FontAwesome name="user" size={30} color="white" />,
+          }}
+        />
       </Tab.Navigator>
-    </NavigationContainer>
   );
 }
 

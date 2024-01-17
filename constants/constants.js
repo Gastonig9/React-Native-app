@@ -1,4 +1,6 @@
 export const url_base = 'https://react-native-app-28918-default-rtdb.firebaseio.com/'
+export const api_key = 'AIzaSyDke7F8LVtwzjmYNRO-BquJXc3VGWApLsw'
+export const auth_url = 'https://identitytoolkit.googleapis.com/v1/'
 
 export const productos = [
   {

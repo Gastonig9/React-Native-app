@@ -5,6 +5,7 @@ import { useFonts } from "expo-font";
 import Navigator from "./navigation/navigator";
 import { store } from "./store/store";
 import { Provider } from "react-redux";
+import MainNavigation from "./navigation/MainNavigation";
 
 const App = () => {
   const [fontsLoaded] = useFonts(fonts);
@@ -19,7 +20,7 @@ const App = () => {
 
   return (
     <Provider store={store}>
-      <Navigator />
+      <MainNavigation/>
     </Provider>
   );
 };
