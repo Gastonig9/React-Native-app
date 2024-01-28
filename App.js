@@ -6,6 +6,16 @@ import Navigator from "./navigation/navigator";
 import { store } from "./store/store";
 import { Provider } from "react-redux";
 import MainNavigation from "./navigation/MainNavigation";
+import { init } from "./database";
+
+
+init()
+.then((response) => {
+  console.log('Conexion a la base de datos establecida')
+})
+.catch((error) => {
+  console.error(error)
+})
 
 const App = () => {
   const [fontsLoaded] = useFonts(fonts);

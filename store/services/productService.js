@@ -4,6 +4,7 @@ import { url_base } from "../../constants/constants";
 export const productApi = createApi({
   reducerPath: "productApi",
   baseQuery: fetchBaseQuery({ baseUrl: url_base }),
+  tagTypes: ["image"],
   endpoints: (builder) => ({
     getProducts: builder.query({
       query: () => "productos.json",

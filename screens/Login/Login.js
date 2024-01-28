@@ -5,30 +5,48 @@ import ButtonSubmit from "../../components/ButtonSubmit/ButtonSubmit";
 import { useLoginMutation } from "../../store/services/authService";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../features/auth/authSlice";
+import { insertSession } from "../../database";
 
 export default function Login({ navigation }) {
-  const dispatch = useDispatch()
-  const [ login, {isLoading, isSuccess, data, error, isError} ] = useLoginMutation()
+  const dispatch = useDispatch();
+  const [login, { isLoading, isSuccess, data, error, isError }] =
+    useLoginMutation();
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
   const [visiblePass, setvisiblePass] = useState(true);
 
-
   useEffect(() => {
-    if(isSuccess){
-      dispatch(setUser(data))
-      navigation.navigate("Home")
-    } 
-    if(isError) console.log(error)
-  }, [data, isError, isSuccess])
-  
+    if (isSuccess) {
+      if (data && data.localId) {
+        dispatch(setUser({
+          localId: data.localId,
+          email: data.email,
+          idToken: data.idToken,
+        }));
+        insertSession({
+          localId: data.localId,
+          email: data.email,
+          idToken: data.idToken,
+        })
+          .then((response) => {
+            console.log(response);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      } else {
+        console.error("Data or localId is undefined");
+      }
+    }
+    if (isError) console.log(error);
+  }, [data, isError, isSuccess]);
 
   const onVisible = () => {
     setvisiblePass(!visiblePass);
   };
 
   const onLogin = () => {
-    login({email: email, password, password})
+    login({ email: email, password: password });
   };
 
   return (
@@ -45,9 +63,12 @@ export default function Login({ navigation }) {
         onChangText={(password) => setpassword(password)}
         isPasswordVisible={visiblePass}
         onTogglePasswordVisibility={onVisible}
-
       />
-      <ButtonSubmit title="Login" onPressSubmit={onLogin} isLoading={isLoading} />
+      <ButtonSubmit
+        title="Login"
+        onPressSubmit={onLogin}
+        isLoading={isLoading}
+      />
       <Text style={styles.noAccount}>¿No tienes una cuenta?</Text>
       <Pressable onPress={() => navigation.navigate("Register")}>
         <Text style={styles.titleRegister}>Registrate</Text>
