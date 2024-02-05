@@ -21,7 +21,6 @@ export default function MainNavigation() {
             email: user.email,
             idToken: user.idToken,
           }));
-          console.log("el user", user)
         }
       } catch (error) {
         console.log(error);
